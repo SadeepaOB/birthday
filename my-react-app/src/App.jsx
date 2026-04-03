@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-
+import img1 from './photose/fdd997d9-b9fc-4b6f-bfa5-d61af2bc7900.JPG';
+import img2 from './photose/e4bef111-28a1-4033-b3ba-bbc6abca9a5a.JPG';
+import img3 from './photose/b73fa7f5-eb17-4b3e-bb03-5fee0be532cc.JPG';
+import img4 from './photose/25269e08-af0d-425b-bc8e-bc561ca42d95.JPG';
+import img5 from './photose/5546cc9b-7925-431e-9d81-74270c2eed21.JPG';
+import img6 from './photose/86ebee1e-508e-4fbe-8c09-025498ce12e4.JPG';
+import img7 from './photose/8bd5604e-3292-497c-8a04-09a735d4c89c.JPG';
+import img8 from './photose/2dd59b27-7168-4af0-bb06-46bdd32a0730.JPG';
+import img9 from './photose/8b6e1892-6088-4ec6-bc20-bee2b1ead61e.JPG';
 // ─── Custom cursor sparkle trail ───────────────────────────────────────────
 function CursorTrail() {
   const [sparks, setSparks] = useState([]);
@@ -278,15 +286,7 @@ function EnvelopeLetter() {
     </div>
   );
 }
-import img1 from './photose/fdd997d9-b9fc-4b6f-bfa5-d61af2bc7900.JPG';
-import img2 from './photose/e4bef111-28a1-4033-b3ba-bbc6abca9a5a.JPG';
-import img3 from './photose/b73fa7f5-eb17-4b3e-bb03-5fee0be532cc.JPG';
-import img4 from './photose/25269e08-af0d-425b-bc8e-bc561ca42d95.JPG';
-import img5 from './photose/5546cc9b-7925-431e-9d81-74270c2eed21.JPG';
-import img6 from './photose/86ebee1e-508e-4fbe-8c09-025498ce12e4.JPG';
-import img7 from './photose/8bd5604e-3292-497c-8a04-09a735d4c89c.JPG';
-import img8 from './photose/2dd59b27-7168-4af0-bb06-46bdd32a0730.JPG';
-import img9 from './photose/8b6e1892-6088-4ec6-bc20-bee2b1ead61e.JPG';
+
 // ─── Memory Gallery ─────────────────────────────────────────────────────────
 const IMAGES = [
   { url: img1, caption: "Your infectious laugh ✨" },
