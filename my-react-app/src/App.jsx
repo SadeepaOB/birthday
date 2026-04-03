@@ -305,10 +305,12 @@ function MemoryGallery() {
   return (
     <div style={{
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
       gap: 16,
-      maxWidth: 600,
+      width: "100%",
+      maxWidth: 1080,
       margin: "0 auto",
+      padding: "0 12px",
     }}>
       {IMAGES.map((img, i) => (
         <div
