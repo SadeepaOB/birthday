@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Heart, Sparkles, Gift, Camera, Mail, Star, Sun, Music } from "lucide-react";
 
 // ─── Custom cursor sparkle trail ───────────────────────────────────────────
 function CursorTrail() {
@@ -199,12 +198,9 @@ function EnvelopeLetter() {
                 </linearGradient>
               </defs>
               <rect x="2" y="2" width="276" height="176" rx="12" fill="url(#envGrad)" stroke="#D4AF37" strokeWidth="2.5" />
-              {/* bottom flap */}
               <polygon points="2,178 140,95 278,178" fill="#FFB6C1" stroke="#D4AF37" strokeWidth="1.5" />
-              {/* sides */}
               <polygon points="2,2 140,95 2,178" fill="#FFC0CB" stroke="#D4AF37" strokeWidth="1" opacity="0.7" />
               <polygon points="278,2 140,95 278,178" fill="#FFC0CB" stroke="#D4AF37" strokeWidth="1" opacity="0.7" />
-              {/* top flap */}
               <polygon
                 className={open ? "lid-open" : ""}
                 points="2,2 278,2 140,95"
@@ -212,7 +208,6 @@ function EnvelopeLetter() {
                 stroke="#D4AF37"
                 strokeWidth="1.5"
               />
-              {/* wax seal */}
               <circle cx="140" cy="90" r="22" fill="#D4AF37" opacity="0.9" />
               <text x="140" y="97" textAnchor="middle" fontSize="18" fill="#FFF0F5">♥</text>
             </svg>
@@ -246,7 +241,6 @@ function EnvelopeLetter() {
           <style>{`
             @keyframes letterReveal { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
           `}</style>
-          {/* Decorative corners */}
           {["top-left","top-right","bottom-left","bottom-right"].map((pos) => (
             <div key={pos} style={{
               position: "absolute",
@@ -420,60 +414,91 @@ function ReasonsCarousel() {
   );
 }
 
-// ─── Countdown ──────────────────────────────────────────────────────────────
-function AwesomenessTimer({ birthYear = 2006, birthMonth = 4, birthDay = 4 }) {
+// ─── Countdown Timer ────────────────────────────────────────────────────────
+function AwesomenessTimer() {
   const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
     const tick = () => {
       const now = new Date();
-      // Target is tomorrow (April 4, 2026) at 00:00:00
-      const target = new Date(now.getFullYear(), birthMonth - 1, birthDay, 0, 0, 0);
-      
-      // Calculate difference in milliseconds
-      const diff = target - now;
-      
-      // If the birthday has already passed today, set to 0 or show "It's here!"
+      // Target = next midnight (tonight at 12:00:00 AM)
+      const target = new Date(now);
+      target.setHours(24, 0, 0, 0);
+
+      const diff = target.getTime() - now.getTime();
+      // If diff <= 0 it's past midnight, show all zeros
       setTimeLeft(diff > 0 ? Math.floor(diff / 1000) : 0);
     };
 
-    tick();
+    tick(); // run immediately
     const t = setInterval(tick, 1000);
     return () => clearInterval(t);
-  }, [birthMonth, birthDay]);
+  }, []);
 
-  const days = Math.floor(timeLeft / 86400);
-  const hrs = Math.floor((timeLeft % 86400) / 3600);
+  const isBirthday = timeLeft <= 0;
+
+  const hrs  = Math.floor(timeLeft / 3600);
   const mins = Math.floor((timeLeft % 3600) / 60);
-  const s = timeLeft % 60;
+  const secs = timeLeft % 60;
 
-  const units = [["Days", days], ["Hours", hrs], ["Mins", mins], ["Secs", s]];
+  const units = [
+    ["Hours", hrs],
+    ["Mins",  mins],
+    ["Secs",  secs],
+  ];
 
   return (
     <div style={{ textAlign: "center" }}>
-      <p style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#D4AF37", letterSpacing: 2, marginBottom: 12, textTransform: "uppercase" }}>
-        {timeLeft > 0 ? "Counting down to your magic moment ✨" : "Your day is finally here! 👑"}
+      <p style={{
+        fontFamily: "'Georgia',serif",
+        fontSize: 14,
+        color: "#D4AF37",
+        letterSpacing: 2,
+        marginBottom: 16,
+        textTransform: "uppercase",
+        fontWeight: "bold",
+      }}>
+        {isBirthday
+          ? "✨ Your Birthday has Begun! ✨"
+          : "Counting down to your magic moment..."}
       </p>
+
       <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
         {units.map(([label, val]) => (
           <div key={label} style={{
-            background: "rgba(255,255,255,0.15)",
-            border: "1.5px solid rgba(212,175,55,0.5)",
+            background: "rgba(255,255,255,0.1)",
+            border: "1.5px solid rgba(212,175,55,0.4)",
             borderRadius: 12,
-            padding: "12px 16px",
-            minWidth: 64,
-            backdropFilter: "blur(8px)",
+            padding: "15px 20px",
+            minWidth: 80,
+            backdropFilter: "blur(10px)",
+            boxShadow: isBirthday ? "0 0 20px rgba(212,175,55,0.4)" : "none",
           }}>
-            <div style={{ fontFamily: "'Georgia',serif", fontSize: 26, fontWeight: "bold", color: "#FFD700", lineHeight: 1 }}>
+            <div style={{
+              fontFamily: "'Georgia',serif",
+              fontSize: 32,
+              fontWeight: "bold",
+              color: isBirthday ? "#FFD700" : "#fff",
+              lineHeight: 1,
+            }}>
               {String(val).padStart(2, "0")}
             </div>
-            <div style={{ fontSize: 10, color: "#FFB6C1", letterSpacing: 1.5, marginTop: 4 }}>{label}</div>
+            <div style={{
+              fontSize: 11,
+              color: "#FFB6C1",
+              letterSpacing: 1.5,
+              marginTop: 6,
+              textTransform: "uppercase",
+            }}>
+              {label}
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
 }
+
 // ─── Section wrapper ────────────────────────────────────────────────────────
 function Section({ title, icon, children, light }) {
   return (
@@ -525,11 +550,10 @@ export default function HappyBirthday() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { overflow-x: hidden; }
-        @keyframes floatUp { 0%{opacity:0;transform:translateY(60px)} 100%{opacity:1;transform:translateY(0)} }
-        @keyframes floatBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-        @keyframes shimmer { 0%,100%{opacity:0.7} 50%{opacity:1} }
-        @keyframes pulseHeart { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
-        .playfair { font-family: 'Playfair Display', 'Georgia', serif !important; }
+        @keyframes floatUp   { 0%{opacity:0;transform:translateY(60px)}  100%{opacity:1;transform:translateY(0)} }
+        @keyframes floatBob  { 0%,100%{transform:translateY(0)}          50%{transform:translateY(-12px)} }
+        @keyframes shimmer   { 0%,100%{opacity:0.7}                      50%{opacity:1} }
+        @keyframes pulseHeart{ 0%,100%{transform:scale(1)}               50%{transform:scale(1.15)} }
       `}</style>
 
       <CursorTrail />
@@ -548,7 +572,6 @@ export default function HappyBirthday() {
         position: "relative",
         overflow: "hidden",
       }}>
-        {/* Background orbs */}
         {[
           ["20%","15%","300px","rgba(255,105,180,0.08)"],
           ["70%","60%","400px","rgba(212,175,55,0.06)"],
@@ -564,7 +587,6 @@ export default function HappyBirthday() {
         ))}
 
         <div style={{ textAlign: "center", zIndex: 1, animation: "floatUp 1.2s ease-out" }}>
-          {/* Crown */}
           <div style={{ fontSize: 48, marginBottom: 8, animation: "pulseHeart 2s ease-in-out infinite" }}>👑</div>
 
           <p style={{ fontFamily: "'Playfair Display','Georgia',serif", fontSize: "clamp(13px,3vw,16px)", color: "#D4AF37", letterSpacing: 4, textTransform: "uppercase", marginBottom: 16 }}>
@@ -599,7 +621,7 @@ export default function HappyBirthday() {
           </h2>
 
           <div style={{ margin: "32px 0 40px" }}>
-            <AwesomenessTimer birthYear={1998} birthMonth={4} birthDay={3} />
+            <AwesomenessTimer />
           </div>
 
           <div style={{
@@ -616,7 +638,6 @@ export default function HappyBirthday() {
           </div>
         </div>
 
-        {/* Gold divider */}
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: 2,
           background: "linear-gradient(90deg,transparent,#D4AF37,transparent)",
@@ -680,9 +701,7 @@ export default function HappyBirthday() {
           style={{
             padding: "18px 52px",
             borderRadius: 50,
-            background: wishClicked
-              ? "linear-gradient(135deg,#D4AF37,#FF69B4)"
-              : "transparent",
+            background: wishClicked ? "linear-gradient(135deg,#D4AF37,#FF69B4)" : "transparent",
             border: "2px solid #D4AF37",
             color: wishClicked ? "#fff" : "#D4AF37",
             fontFamily: "'Playfair Display','Georgia',serif",
