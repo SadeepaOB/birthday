@@ -422,32 +422,37 @@ function ReasonsCarousel() {
 
 // ─── Countdown ──────────────────────────────────────────────────────────────
 function AwesomenessTimer({ birthYear = 2006, birthMonth = 4, birthDay = 4 }) {
-  const [secs, setSecs] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
-    const bday = new Date(birthYear, birthMonth - 1, birthDay);
     const tick = () => {
       const now = new Date();
-      let latest = new Date(now.getFullYear(), birthMonth - 1, birthDay);
-      if (latest > now) latest.setFullYear(now.getFullYear() - 1);
-      setSecs(Math.floor((now - latest) / 1000));
+      // Target is tomorrow (April 4, 2026) at 00:00:00
+      const target = new Date(now.getFullYear(), birthMonth - 1, birthDay, 0, 0, 0);
+      
+      // Calculate difference in milliseconds
+      const diff = target - now;
+      
+      // If the birthday has already passed today, set to 0 or show "It's here!"
+      setTimeLeft(diff > 0 ? Math.floor(diff / 1000) : 0);
     };
+
     tick();
     const t = setInterval(tick, 1000);
     return () => clearInterval(t);
-  }, [birthYear, birthMonth, birthDay]);
+  }, [birthMonth, birthDay]);
 
-  const days = Math.floor(secs / 86400);
-  const hrs = Math.floor((secs % 86400) / 3600);
-  const mins = Math.floor((secs % 3600) / 60);
-  const s = secs % 60;
+  const days = Math.floor(timeLeft / 86400);
+  const hrs = Math.floor((timeLeft % 86400) / 3600);
+  const mins = Math.floor((timeLeft % 3600) / 60);
+  const s = timeLeft % 60;
 
   const units = [["Days", days], ["Hours", hrs], ["Mins", mins], ["Secs", s]];
 
   return (
     <div style={{ textAlign: "center" }}>
       <p style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#D4AF37", letterSpacing: 2, marginBottom: 12, textTransform: "uppercase" }}>
-        Seconds being this awesome ✨
+        {timeLeft > 0 ? "Counting down to your magic moment ✨" : "Your day is finally here! 👑"}
       </p>
       <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
         {units.map(([label, val]) => (
@@ -469,7 +474,6 @@ function AwesomenessTimer({ birthYear = 2006, birthMonth = 4, birthDay = 4 }) {
     </div>
   );
 }
-
 // ─── Section wrapper ────────────────────────────────────────────────────────
 function Section({ title, icon, children, light }) {
   return (
