@@ -278,18 +278,26 @@ function EnvelopeLetter() {
     </div>
   );
 }
-
+import img1 from './photose/fdd997d9-b9fc-4b6f-bfa5-d61af2bc7900.JPG';
+import img2 from './photose/e4bef111-28a1-4033-b3ba-bbc6abca9a5a.JPG';
+import img3 from './photose/b73fa7f5-eb17-4b3e-bb03-5fee0be532cc.JPG';
+import img4 from './photose/25269e08-af0d-425b-bc8e-bc561ca42d95.JPG';
+import img5 from './photose/5546cc9b-7925-431e-9d81-74270c2eed21.JPG';
+import img6 from './photose/86ebee1e-508e-4fbe-8c09-025498ce12e4.JPG';
+import img7 from './photose/8bd5604e-3292-497c-8a04-09a735d4c89c.JPG';
+import img8 from './photose/2dd59b27-7168-4af0-bb06-46bdd32a0730.JPG';
+import img9 from './photose/8b6e1892-6088-4ec6-bc20-bee2b1ead61e.JPG';
 // ─── Memory Gallery ─────────────────────────────────────────────────────────
 const IMAGES = [
-  { url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&q=80", caption: "Your infectious laugh ✨" },
-  { url: "https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=400&q=80", caption: "Our favorite adventures 🌸" },
-  { url: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80", caption: "The way you light up a room 💛" },
-  { url: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80", caption: "Your beautiful soul 🌹" },
-  { url: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80", caption: "Dancing through life 🎵" },
-  { url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80", caption: "Every smile a gift 🌺" },
-  { url: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&q=80", caption: "Your endless kindness 💕" },
-  { url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80", caption: "Making every day magic ✦" },
-  { url: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=400&q=80", caption: "Chasing golden hours 🌅" },
+  { url: img1, caption: "Your infectious laugh ✨" },
+  { url: img2, caption: "Our favorite adventures 🌸" },
+  { url: img3, caption: "The way you light up a room 💛" },
+  { url: img4, caption: "Your beautiful soul 🌹" },
+  { url: img5, caption: "Dancing through life 🎵" },
+  { url: img6, caption: "Every smile a gift 🌺" },
+  { url: img7, caption: "Your endless kindness 💕" },
+  { url: img8, caption: "Making every day magic ✦" },
+  { url: img9, caption: "Chasing golden hours 🌅" },
 ];
 
 function MemoryGallery() {
@@ -658,8 +666,8 @@ export default function HappyBirthday() {
           Every photo a chapter, every moment a treasure.<br />Hover to reveal the memories.
         </p>
         <MemoryGallery />
-        <p style={{ textAlign: "center", marginTop: 20, color: "rgba(212,175,55,0.5)", fontSize: 12, fontStyle: "italic" }}>
-          ↑ Replace these with your real photos in the <code style={{ background: "rgba(255,255,255,0.1)", padding: "1px 6px", borderRadius: 4 }}>IMAGES</code> array
+        <p>
+          
         </p>
       </Section>
 
